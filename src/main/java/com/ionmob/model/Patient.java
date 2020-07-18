@@ -15,9 +15,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_patient")
+@Table(name="tb_patient")
 public class Patient {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
@@ -26,32 +26,25 @@ public class Patient {
 	
 	@Getter
 	@Setter
-	private String username;
-
-	@Getter
-	private String password;
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	private String firstname;
 
 	@Getter
 	@Setter
-	private String firstname;
+	private String lastname;
 
     @Getter
 	@Setter
-	@Column(name = "create_dt")
+	@Column(name="create_dt")
 	private Date createDt;	
     
     @Getter
 	@Setter
-	@Column(name = "update_dt")
+	@Column(name="update_dt")
 	private Date updateDt;	
-    
-	@OneToMany(mappedBy = "patient")
+
 	@Getter
 	@Setter
-    Set<Reminder> reminders;
+	@OneToMany(mappedBy = "patient")
+    Set<Prescription> prescriptions;
 }
 

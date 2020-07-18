@@ -15,22 +15,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_doctor")
+@Table(name="tb_doctor")
 public class Doctor {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
 	@Setter
 	private Integer id;
-	
-	@Getter
-	@Setter
-	private String username;
-
-	@Getter
-	@Setter
-	private String password;
 
 	@Getter
 	@Setter
@@ -40,19 +32,18 @@ public class Doctor {
 	@Setter
 	private String lastname;
 
-    @Getter
-	@Setter
-	@Column(name = "create_dt")
-	private Date createDt;	
-    
-    @Getter
-	@Setter
-	@Column(name = "update_dt")
-	private Date updateDt;	
-    
-	@OneToMany(mappedBy = "doctor")
 	@Getter
 	@Setter
-    Set<Reminder> reminders;
-}
+	@Column(name="create_dt")
+	private Date createDt;
 
+	@Getter
+	@Setter
+	@Column(name="update_dt")
+	private Date updateDt;
+
+	@Getter
+	@Setter
+	@OneToMany(mappedBy = "doctor")
+    Set<Prescription> prescriptions;   
+}

@@ -12,10 +12,9 @@ public class IonmobApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IonmobApplication.class, args);
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-
 }

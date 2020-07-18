@@ -11,32 +11,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "tb_reminder")
 public class Reminder {
-		
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+	private Integer id;
 	
+	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name = "id_doctor")
+    @JoinColumn(name = "prescription_id")
 	@Getter
 	@Setter
-    Doctor doctor;
+	private Prescription prescription;
  
-    @ManyToOne
-    @JoinColumn(name = "id_patient")
     @Getter
 	@Setter
-    Patient patient;
-	
-    @Getter
-	@Setter
-	private String description;
+	private String message;
 	
     @Getter
 	@Setter
@@ -44,7 +41,16 @@ public class Reminder {
     
     @Getter
 	@Setter
-	private int duration;
+	private Float duration;
+
+    @Getter
+	@Setter
+	private Float elapsed;
+
+    @Getter
+	@Setter
+	@Column(name = "late_ind")
+	private Integer lateInd;
 
     @Getter
 	@Setter
