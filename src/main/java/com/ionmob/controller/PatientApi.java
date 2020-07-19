@@ -34,6 +34,11 @@ public class PatientApi {
 	public List<Patient> getAllPatients() {
 		return patientRepository.findAll();
 	}
+	
+	@GetMapping("/api/patients/doctor/{id}")
+	public List<Patient> getAllPatientsByDoctorId(@PathVariable("id") int id) {
+		return patientRepository.findDistinctByPrescriptions_DoctorId(id);
+	}
 
 	@GetMapping("/api/patient/{id}")
 	public Optional<Patient> getPatientById(@PathVariable("id") int id) {

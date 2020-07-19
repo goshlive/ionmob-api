@@ -1,5 +1,7 @@
 package com.ionmob.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ionmob.model.Patient;
@@ -10,4 +12,6 @@ import com.ionmob.model.Patient;
  * @author I Made Putrama
  *
  */
-public interface PatientRepository extends JpaRepository<Patient, Integer> {}
+public interface PatientRepository extends JpaRepository<Patient, Integer> {
+	List<Patient> findDistinctByPrescriptions_DoctorId(int id);
+}
