@@ -15,10 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ionmob.model.Roles;
 import com.ionmob.model.User;
 import com.ionmob.repo.UserRepository;
 import com.ionmob.service.UserDetailsImpl;
 
+/**
+ * This Class provides API related to User data in the database
+ * 
+ * @author I Made Putrama
+ *
+ */
 @RestController
 @ResponseBody
 @CrossOrigin(origins = "*")
@@ -28,15 +35,34 @@ public class ServiceApi {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	
+	private ResponseEntity<User> returnOK(String p, Optional<User> oUser) {
+		UserDetails userDetails = oUser.map(UserDetailsImpl::new).get();
+		boolean pwMatches = passwordEncoder.matches(p, userDetails.getPassword());
+		if (pwMatches) {
+			return ResponseEntity.ok(oUser.get());
+		}		
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();		
+	}
 
-	@PostMapping("/api/login")
-	public ResponseEntity<String> login(@RequestBody User loginUser) {
-		Optional<User> user = userRepository.findByUsername(loginUser.getUsername());
-		if (user != null) {
-			UserDetails userDetails = user.map(UserDetailsImpl::new).get();
-			boolean pwMatches = passwordEncoder.matches(loginUser.getPassword(), userDetails.getPassword());
-			if (pwMatches) {
-				return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	@PostMapping("/api/doctor/login")
+	public ResponseEntity<User> doctorLogin(@RequestBody User loginUser) {
+		Optional<User> oUser = userRepository.findByUsername(loginUser.getUsername());
+		if (oUser != null) {
+			if (Roles.DOCTOR.name().equals(oUser.get().getRoles())) {
+				return returnOK(loginUser.getPassword(), oUser);
+			}
+		}
+
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	}
+
+	@PostMapping("/api/patient/login")
+	public ResponseEntity<User> patientLogin(@RequestBody User loginUser) {
+		Optional<User> oUser = userRepository.findByUsername(loginUser.getUsername());
+		if (oUser != null) {
+			if (Roles.PATIENT.name().equals(oUser.get().getRoles())) {
+				return returnOK(loginUser.getPassword(), oUser);
 			}
 		}
 

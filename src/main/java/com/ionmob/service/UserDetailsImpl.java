@@ -11,6 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ionmob.model.User;
 
+/**
+ * This class implements the UserDetails as defined by the Spring Security
+ * 
+ * @author I Made Putrama
+ *
+ */
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = -1730483527378159339L;
 	
@@ -19,6 +25,11 @@ public class UserDetailsImpl implements UserDetails {
 	private boolean isActive;
 	private List<GrantedAuthority> authorities;
 	
+	/**
+	 * Mapping User roles and other attributes
+	 * 
+	 * @param user
+	 */
 	public UserDetailsImpl(User user) {
 		this.userName = user.getUsername();
 		this.password = user.getPassword();

@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ionmob.model.Doctor;
 import com.ionmob.repo.DoctorRepository;
 
+/**
+ * This Class provides API related to Doctor data in the database
+ * 
+ * @author I Made Putrama
+ *
+ */
 @RestController
 @ResponseBody
 @CrossOrigin(origins = "*")

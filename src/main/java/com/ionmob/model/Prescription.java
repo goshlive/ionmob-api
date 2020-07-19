@@ -1,6 +1,6 @@
 package com.ionmob.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +19,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * This Class holds the Prescription data from the tb_prescription table
+ * 
+ * @author I Made Putrama
+ *
+ */
 @Entity
 @Table(name = "tb_prescription")
 public class Prescription {
@@ -49,12 +55,12 @@ public class Prescription {
 	
 	@Getter
 	@Setter
-	@Column(name="create_dt")
+	@Column(name="create_dt", columnDefinition = "TIMESTAMP")
 	private Date createDt;	
     
     @Getter
 	@Setter
-	@Column(name="update_dt")
+	@Column(name="update_dt", columnDefinition = "TIMESTAMP")
 	private Date updateDt;	
 
 	@Getter

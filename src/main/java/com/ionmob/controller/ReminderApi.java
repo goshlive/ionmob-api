@@ -19,9 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ionmob.exception.RecordNotFoundException;
 import com.ionmob.model.Prescription;
 import com.ionmob.model.Reminder;
+import com.ionmob.model.ReminderDetail;
 import com.ionmob.repo.PrescriptionRepository;
 import com.ionmob.repo.ReminderRepository;
 
+/**
+ * This Class provides API related to Reminder data in the database
+ * 
+ * @author I Made Putrama
+ *
+ */
 @RestController
 @ResponseBody
 @CrossOrigin(origins = "*")
@@ -41,7 +48,12 @@ public class ReminderApi {
 	public Optional<Reminder> getReminderById(@PathVariable("id") int id) {
 		return reminderRepository.findById(id);
 	}
-
+	
+	@GetMapping("/api/reminder/{id}/detail")
+	public Optional<ReminderDetail> getAllReminderDetailById(@PathVariable("id") int id) {
+		return reminderRepository.findDetailById(id);
+	}
+		
 	@GetMapping("/api/doctor/{id}/reminders")
 	public List<Reminder> getAllRemindersByDoctor(@PathVariable("id") int id) {
 		return reminderRepository.findByPrescriptionDoctorId(id);
@@ -50,6 +62,11 @@ public class ReminderApi {
 	@GetMapping("/api/patient/{id}/reminders")
 	public List<Reminder> getAllRemindersByPatient(@PathVariable("id") int id) {
 		return reminderRepository.findByPrescriptionPatientId(id);
+	}
+	
+	@GetMapping("/api/patient/{id}/{ddMMyyyy}/reminders")
+	public List<ReminderDetail> getAllReminderDetailsByPatientAndDate(@PathVariable("id") int id, @PathVariable("ddMMyyyy") String date) {
+		return reminderRepository.findDetail(id, date);
 	}
 	
 	@GetMapping("/api/doctor/{did}/patient/{pid}/reminders")

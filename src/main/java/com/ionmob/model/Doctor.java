@@ -1,6 +1,6 @@
 package com.ionmob.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,6 +14,12 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * This Class holds the Doctor data from the tb_doctor table
+ * 
+ * @author I Made Putrama
+ *
+ */
 @Entity
 @Table(name="tb_doctor")
 public class Doctor {
@@ -34,12 +40,12 @@ public class Doctor {
 
 	@Getter
 	@Setter
-	@Column(name="create_dt")
+	@Column(name="create_dt", columnDefinition = "TIMESTAMP")
 	private Date createDt;
 
 	@Getter
 	@Setter
-	@Column(name="update_dt")
+	@Column(name="update_dt", columnDefinition = "TIMESTAMP")
 	private Date updateDt;
 
 	@Getter

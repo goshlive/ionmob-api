@@ -23,6 +23,12 @@ import com.ionmob.repo.DoctorRepository;
 import com.ionmob.repo.PatientRepository;
 import com.ionmob.repo.PrescriptionRepository;
 
+/**
+ * This Class provides API related to Prescription data in the database
+ * 
+ * @author I Made Putrama
+ *
+ */
 @RestController
 @ResponseBody
 @CrossOrigin(origins = "*")
