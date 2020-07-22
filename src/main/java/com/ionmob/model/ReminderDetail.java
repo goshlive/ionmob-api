@@ -20,6 +20,7 @@ public class ReminderDetail {
 			String message, 
 			String priority, 
 			Float duration, 
+			Float elapsed,
 			Integer lateInd, 
 			Date createDt, 
 			Date doneDt
@@ -32,6 +33,7 @@ public class ReminderDetail {
 		this.message = message;
 		this.priority = priority;
 		this.duration = duration;
+		this.elapsed = elapsed;
 		this.lateInd = lateInd;
 		this.createDt = createDt;
 		this.doneDt = doneDt;
@@ -73,6 +75,10 @@ public class ReminderDetail {
 	@Setter
 	private Integer lateInd;
 	
+	@Getter
+	@Setter
+	private Float elapsed;
+
 	@Getter
 	@Setter
 	private Date createDt;

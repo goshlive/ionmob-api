@@ -40,7 +40,7 @@ import lombok.Setter;
  */
 @NamedNativeQuery(name = "Reminder.findDetail", query = "SELECT r.id, doc.id as doc_id, r.prescription_id as pres_id, "
 		+ "CONCAT(doc.firstname, doc.lastname) as doctor_name, p.prescription, r.message, r.priority, "
-		+ "r.duration, r.late_ind, r.create_dt, r.done_dt "
+		+ "r.duration, r.elapsed, r.late_ind, r.create_dt, r.done_dt "
 		+ "FROM tb_reminder r INNER JOIN tb_prescription p "
 		+ "ON r.prescription_id = p.id INNER JOIN tb_patient pat ON p.patient_id = pat.id "
 		+ "INNER JOIN tb_doctor doc ON p.doctor_id = doc.id "
@@ -54,7 +54,7 @@ import lombok.Setter;
  */
 @NamedNativeQuery(name = "Reminder.findDetailById", query = "SELECT r.id, doc.id as doc_id, r.prescription_id as pres_id, "
 		+ "CONCAT(doc.firstname, doc.lastname) as doctor_name, p.prescription, r.message, r.priority, "
-		+ "r.duration, r.late_ind, r.create_dt, r.done_dt "
+		+ "r.duration, r.elapsed, r.late_ind, r.create_dt, r.done_dt "
 		+ "FROM tb_reminder r INNER JOIN tb_prescription p "
 		+ "ON r.prescription_id = p.id INNER JOIN tb_patient pat ON p.patient_id = pat.id "
 		+ "INNER JOIN tb_doctor doc ON p.doctor_id = doc.id WHERE r.id = ?1", 
@@ -69,7 +69,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_reminder")
 public class Reminder {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
@@ -118,5 +118,10 @@ public class Reminder {
 	@Setter
 	@Column(name = "update_dt", columnDefinition = "TIMESTAMP")
 	private Date updateDt;
+	
+	public int getDoneStatus() {
+		if (getDoneDt() == null) return 0;
+		return getLateInd();
+	}
 
 }

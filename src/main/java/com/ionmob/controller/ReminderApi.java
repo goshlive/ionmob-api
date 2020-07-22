@@ -80,10 +80,10 @@ public class ReminderApi {
 	}
 	
 	@PostMapping("/api/prescription/{id}/reminders")
-	public void postReminders(@PathVariable int did, @PathVariable int pid, @RequestBody ArrayList<Reminder> reminders) {
-		Optional<Prescription> pOptional = prescriptionRepository.findById(did);
+	public void postReminders(@PathVariable int id, @RequestBody ArrayList<Reminder> reminders) {
+		Optional<Prescription> pOptional = prescriptionRepository.findById(id);
 		if (!pOptional.isPresent()) {
-			throw new RecordNotFoundException("Prescription with id: " + did + " not found.");
+			throw new RecordNotFoundException("Prescription with id: " + id + " not found.");
 		}
 		
 		Prescription p = pOptional.get();
@@ -103,5 +103,10 @@ public class ReminderApi {
 	@PutMapping("/api/reminder/{id}/done")
 	public void reminderDone(@PathVariable int id) {
 		reminderRepository.setDone(id);
+	}
+	
+	@DeleteMapping("/api/reminders")
+	public @ResponseBody void delReminders() {
+		reminderRepository.deleteAll();
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,6 +67,25 @@ public class PrescriptionApi {
 		return prescriptionRepository.findByDoctorAndPatient(did, pid);
 	}
 
+	
+	@PostMapping("/api/doctor/{did}/patient/{pid}/prescription")
+	public void postPrescription(@PathVariable("did") int did, @PathVariable("pid") int pid, @RequestBody Prescription prescription) {
+		Optional<Doctor> dOptional = doctorRepository.findById(did);
+		if (!dOptional.isPresent()) {
+			throw new RecordNotFoundException("Doctor with id: " + did + " not found.");
+		}
+		Optional<Patient> pOptional = patientRepository.findById(pid);
+		if (!pOptional.isPresent()) {
+			throw new RecordNotFoundException("Patient with id: " + pid + " not found.");
+		}
+		
+		Doctor d = dOptional.get();
+		Patient p = pOptional.get();
+		prescription.setDoctor(d);
+		prescription.setPatient(p);
+		prescriptionRepository.save(prescription);
+	}
+	
 	@PostMapping("/api/doctor/{did}/patient/{pid}/prescriptions")
 	public void postPrescriptions(@PathVariable("did") int did, @PathVariable("pid") int pid, @RequestBody ArrayList<Prescription> prescriptions) {
 		Optional<Doctor> dOptional = doctorRepository.findById(did);
@@ -91,6 +111,11 @@ public class PrescriptionApi {
 			pr.setPatient(p);
 		}
 		prescriptionRepository.saveAll(prescriptions);
+	}
+	
+	@DeleteMapping("/api/prescriptions")
+	public @ResponseBody void delPrescriptions() {
+		prescriptionRepository.deleteAll();
 	}
 
 }
