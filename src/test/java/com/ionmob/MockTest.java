@@ -32,9 +32,12 @@ import com.ionmob.repo.PrescriptionRepository;
 import com.ionmob.repo.ReminderRepository;
 import com.ionmob.repo.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Slf4j
 public class MockTest {
 
 	@Autowired
@@ -207,7 +210,8 @@ public class MockTest {
 	
 	@Test
 	@Rollback(false)
-	void mock1Test() throws InterruptedException {		
+	void mock1Test() throws InterruptedException {	
+		log.debug("Starting mock...");
 		//cleanup
 		cleanDB(true, true);
 		
@@ -262,5 +266,6 @@ public class MockTest {
 				createReminder(i, pres, reminders, reminderCal, doctor.get().getFirstname());
 			}
 		}
+		log.debug("Starting mock. DONE.");
 	}
 }

@@ -40,8 +40,8 @@ public interface ReminderRepository extends JpaRepository<Reminder, Integer> {
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE tb_reminder r SET r.done_dt = NOW(), "
-			+ "r.elapsed = TIMESTAMPDIFF(MINUTE, r.create_dt, r.done_dt)/60, "
-			+ "r.late_ind = IF(r.elapsed > r.duration, 2, 1), update_dt = NOW() "
+			+ "r.elapsed = (TIMESTAMPDIFF(DAY, r.create_dt, now())*24), "
+			+ "r.late_ind = IF((TIMESTAMPDIFF(DAY, r.create_dt, now())*24) > r.duration, 2, 1), update_dt = NOW() "
 			+ "WHERE r.id = ?1", nativeQuery = true)
     void setDone(int id);
 	

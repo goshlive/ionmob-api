@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This Class holds the Patient data from the tb_patient table
@@ -25,8 +26,9 @@ import lombok.Setter;
  */
 @Entity
 @Table(name="tb_patient")
+@Slf4j
 public class Patient {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Getter
@@ -68,11 +70,11 @@ public class Patient {
 	
 	@Transient
 	public String getName() {
-		hitCount();
 		return getFirstname() + " " + getLastname();
 	}
 	
 	public int getHighUnfinished() {
+		if (!counted) hitCount();
 		return highUnf;
 	}
 	
@@ -95,26 +97,33 @@ public class Patient {
 				Iterator<Reminder> itr = pres.getReminders().iterator();
 				while (itr.hasNext()) {
 					Reminder rem = itr.next();
-					int late = rem.getLateInd() == null ? 0 : rem.getLateInd();
-					switch (late) {
-					case 2: //LATE
-						counter(rem); break;
-					case 1: //ON_TIME, do not count
-						break;
-					default: //NOT_DONE
-						//get time different
+					if (rem.getDoneDt() != null) {
+						log.debug("TASK DONE=============================================lateind["+rem.getLateInd()+"]");
+						if (1 == rem.getLateInd()) {
+							//ON TIME
+							continue;
+						} else if (2 == rem.getLateInd()) {
+							//OVERDUE
+							counter(rem);
+							continue;
+						}
+					} else {
+						log.debug("TASK NOT DONE=============================================");
+						//NOT DONE, check if it is OVERDUE
 						long diffInMillies = Math.abs(new Date().getTime() - getCreateDt().getTime());
 					    long diffInMins = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
 					    float diffInHours = diffInMins / 60;
+					    log.debug("TASK NOT DONE diff["+ diffInHours +"] hours, duration["+rem.getDuration()+"]");
 						if (diffInHours > rem.getDuration()) {
 							//DURATION has passed, count it
 							counter(rem);
+							continue;
 						}
 					}
 				}
 			}
 		}
-	}
+	}	
 
 
 	/**
