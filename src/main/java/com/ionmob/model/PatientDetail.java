@@ -16,8 +16,8 @@ public class PatientDetail {
 			int unfinishedMiddle, 
 			int unfinishedLow
 			) {
-		this.docId = presId;
-		this.docName = prescription;
+		this.presId = presId;
+		this.prescription = prescription;
 		this.docId = docId;
 		this.docName = docName;
 		this.patId = patId;

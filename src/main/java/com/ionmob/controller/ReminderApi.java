@@ -79,6 +79,14 @@ public class ReminderApi {
 		return reminderRepository.findByPrescriptionId(id);
 	}
 	
+	@PostMapping("/api/post/reminder")
+	public void postAReminder(@RequestBody Reminder reminder) {	
+		Optional<Prescription> pOptional = prescriptionRepository.findById(reminder.getId());
+		Prescription p = pOptional.get();
+		reminder.setPrescription(p);
+		reminderRepository.save(reminder);
+	}
+	
 	@PostMapping("/api/prescription/{id}/reminders")
 	public void postReminders(@PathVariable int id, @RequestBody ArrayList<Reminder> reminders) {
 		Optional<Prescription> pOptional = prescriptionRepository.findById(id);
