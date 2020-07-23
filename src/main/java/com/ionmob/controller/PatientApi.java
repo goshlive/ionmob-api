@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ionmob.model.Graph;
 import com.ionmob.model.Patient;
+import com.ionmob.model.PatientDetail;
 import com.ionmob.repo.PatientRepository;
 
 /**
@@ -39,6 +41,16 @@ public class PatientApi {
 	@GetMapping("/api/patients/doctor/{id}")
 	public List<Patient> getAllPatientsByDoctorId(@PathVariable("id") int id) {
 		return patientRepository.findDistinctByPrescriptions_DoctorId(id);
+	}
+
+	@GetMapping("/api/patient-details/doctor/{id}")
+	public List<PatientDetail> findPatientDetails(@PathVariable("id") int id) {
+		return patientRepository.findPatientDetails(id);
+	}
+
+	@GetMapping("/api/patient-graph/{id}")
+	public Optional<Graph> getReminderGraphData(@PathVariable("id") int id) {
+		return patientRepository.getReminderGraphData(id);
 	}
 
 	@GetMapping("/api/patient/{id}")
