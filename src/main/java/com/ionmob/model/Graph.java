@@ -1,20 +1,17 @@
 package com.ionmob.model;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 
 public class Graph {	
 	
-	public Graph(Integer docId, String docName, Integer patId, String patName, Date createDt, int unfinished0, int unfinished1,
+	public Graph(Integer docId, String docName, Integer patId, String patName, int unfinished0, int unfinished1,
 			int unfinished2, int unfinished3, int unfinished4, int unfinished5, int unfinished6) {
 		super();
 		this.docId = docId;
 		this.docName = docName;
 		this.patId = patId;
 		this.patName = patName;
-		this.createDt = createDt;
 		this.unfinished0 = unfinished0;
 		this.unfinished1 = unfinished1;
 		this.unfinished2 = unfinished2;
@@ -39,10 +36,6 @@ public class Graph {
 	@Getter
 	@Setter
 	private String patName;
-
-	@Getter
-	@Setter
-	private Date createDt;
 
 	@Getter
 	@Setter

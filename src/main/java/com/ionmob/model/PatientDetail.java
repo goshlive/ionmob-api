@@ -6,6 +6,8 @@ import lombok.Setter;
 public class PatientDetail {
 	
 	public PatientDetail(
+			Integer presId, 
+			String prescription, 
 			Integer docId, 
 			String docName, 
 			Integer patId, 
@@ -14,6 +16,8 @@ public class PatientDetail {
 			int unfinishedMiddle, 
 			int unfinishedLow
 			) {
+		this.docId = presId;
+		this.docName = prescription;
 		this.docId = docId;
 		this.docName = docName;
 		this.patId = patId;
@@ -23,6 +27,14 @@ public class PatientDetail {
 		this.unfinishedLow = unfinishedLow;
 	}
 	
+	@Getter
+	@Setter
+	private Integer presId;
+	
+	@Getter
+	@Setter
+	private String prescription;
+
 	@Getter
 	@Setter
 	private Integer docId;
