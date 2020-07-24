@@ -29,7 +29,7 @@ CREATE TABLE `tb_doctor` (
   `create_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_dt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1662 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `tb_patient` (
   `create_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_dt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=141447 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `tb_prescription` (
   KEY `patient_id` (`patient_id`),
   CONSTRAINT `tb_prescription_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `tb_doctor` (`id`),
   CONSTRAINT `tb_prescription_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `tb_patient` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60547 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `tb_reminder` (
   PRIMARY KEY (`id`),
   KEY `prescription_id` (`prescription_id`),
   CONSTRAINT `tb_reminder_ibfk_1` FOREIGN KEY (`prescription_id`) REFERENCES `tb_prescription` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=520193 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +113,7 @@ CREATE TABLE `tb_user` (
   `create_dt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_dt` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25651 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,4 +133,4 @@ CREATE TABLE `tb_user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-18 13:53:11
+-- Dump completed on 2020-07-24 20:14:09
