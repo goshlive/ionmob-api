@@ -17,9 +17,7 @@ import com.ionmob.model.Patient;
 import com.ionmob.model.Prescription;
 import com.ionmob.model.User;
 import com.ionmob.repo.DoctorRepository;
-import com.ionmob.repo.PatientRepository;
 import com.ionmob.repo.PrescriptionRepository;
-import com.ionmob.repo.ReminderRepository;
 import com.ionmob.repo.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,17 +32,10 @@ public class MockTest2 {
 	private DoctorRepository doctorRepository;
 
 	@Autowired
-	private PatientRepository patientRepository;
-
-	@Autowired
 	private UserRepository userRepository;
 
 	@Autowired
-	private PrescriptionRepository prescriptionRepository;
-
-	@Autowired
-	private ReminderRepository reminderRepository;
-		
+	private PrescriptionRepository prescriptionRepository;		
 	
 	@Test
 	@Rollback(false)
@@ -58,9 +49,6 @@ public class MockTest2 {
 			Prescription pres = it.next();
 			Patient patient = pres.getPatient();
 			log.debug("Doctor ["+doctor.get().getFirstname()+"], Patient["+patient.getFirstname()+"]===========================");
-			log.debug("High unfinished [" + patient.getHighUnfinished()+"]");
-			log.debug("Midddle unfinished [" + patient.getMiddleUnfinished()+"]");
-			log.debug("Low unfinished [" + patient.getLowUnfinished()+"]");
 		}
 	}
 }
