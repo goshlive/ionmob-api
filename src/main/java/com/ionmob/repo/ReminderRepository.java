@@ -49,11 +49,10 @@ public interface ReminderRepository extends JpaRepository<Reminder, Integer> {
 	 * Correlates the Native SQL-query (named=Reminder.findDetail) as in the Reminder model 
 	 * 
 	 * @param id
-	 * @param date
 	 * @return
 	 */
 	@Query(nativeQuery = true)
-	List<ReminderDetail> findDetail(int id, String date);
+	List<ReminderDetail> findDetail(int id);
 	
 	/**
 	 * Correlates the Native SQL-query (named=Reminder.findDetailById) as in the Reminder model

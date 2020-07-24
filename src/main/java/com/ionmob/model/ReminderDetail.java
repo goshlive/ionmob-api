@@ -12,19 +12,9 @@ import lombok.Setter;
  *
  */
 public class ReminderDetail {
-	public ReminderDetail(Integer id, 
-			Integer docId, 
-			Integer presId, 
-			String doctorName, 
-			String prescription,
-			String message, 
-			String priority, 
-			Float duration, 
-			Float elapsed,
-			Integer lateInd, 
-			Date createDt, 
-			Date doneDt
-			) {
+
+	public ReminderDetail(Integer id, Integer docId, Integer presId, String doctorName, String prescription,
+			String message, String priority, Float duration, Float elapsed, Integer lateInd, Date createDt, Date doneDt) {
 		this.id = id;
 		this.docId = docId;
 		this.presId = presId;
@@ -86,5 +76,10 @@ public class ReminderDetail {
 	@Getter
 	@Setter
 	private Date doneDt;
+	
+	public int getDoneStatus() {
+		if (getDoneDt() == null) return 0;
+		return getLateInd();
+	}
 
 }

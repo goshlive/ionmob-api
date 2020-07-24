@@ -30,7 +30,7 @@ public class MockTest3 {
 		while(it.hasNext()) {
 			PatientDetail pat = it.next();
 			System.out.println("docId["+pat.getDocId()+"], docName["+pat.getDocName()+"], "
-					+ "patId["+pat.getPatId()+"], patName["+pat.getPatName()+"], "
+					+ "patId["+pat.getId()+"], patName["+pat.getName()+"], "
 					+ "unfin-HIGH["+pat.getUnfinishedHigh()+"], unfin-MIDDLE["+pat.getUnfinishedMiddle()+"], unfin-LOW["+pat.getUnfinishedLow()+"]");
 		}
 		

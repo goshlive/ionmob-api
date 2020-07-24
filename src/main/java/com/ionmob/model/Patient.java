@@ -32,15 +32,15 @@ import lombok.extern.slf4j.Slf4j;
 @SqlResultSetMapping(name = "patientDetailMapping", classes = {
 		@ConstructorResult(targetClass = PatientDetail.class, 
 				columns = {
+					@ColumnResult(name = "patId", type=Integer.class), 
+					@ColumnResult(name = "patName", type=String.class),
 					@ColumnResult(name = "presId", type=Integer.class),
 					@ColumnResult(name = "prescription", type=String.class), 
 					@ColumnResult(name = "docId", type=Integer.class),
 					@ColumnResult(name = "docName", type=String.class), 
-					@ColumnResult(name = "patId", type=Integer.class), 
-					@ColumnResult(name = "patName", type=String.class),
-					@ColumnResult(name = "unfinishedHigh", type=int.class),
-					@ColumnResult(name = "unfinishedMiddle", type=int.class), 
-					@ColumnResult(name = "unfinishedLow", type=int.class)
+					@ColumnResult(name = "unfinishedHigh", type=Integer.class),
+					@ColumnResult(name = "unfinishedMiddle", type=Integer.class), 
+					@ColumnResult(name = "unfinishedLow", type=Integer.class)
 				})
 		})
 
@@ -57,7 +57,7 @@ import lombok.extern.slf4j.Slf4j;
 		"    inner join tb_doctor d on pres.doctor_id = d.id " + 
 		"    where pres.doctor_id = ?1 ) a " + 
 		"left join tb_reminder r on a.presId = r.prescription_id and r.done_dt is null " + 
-		") sub group by sub.presId, sub.docId, sub.patId", resultSetMapping = "patientDetailMapping")
+		") sub group by sub.presId, sub.docId, sub.patId order by unfinishedHigh desc, unfinishedMiddle desc, unfinishedLow desc ", resultSetMapping = "patientDetailMapping")
 
 @SqlResultSetMapping(name = "graphMapping", classes = {
 		@ConstructorResult(targetClass = Graph.class, 
@@ -66,13 +66,13 @@ import lombok.extern.slf4j.Slf4j;
 					@ColumnResult(name = "docName", type=String.class), 
 					@ColumnResult(name = "patId", type=Integer.class), 
 					@ColumnResult(name = "patName", type=String.class),
-					@ColumnResult(name = "unfinished0", type=int.class),
-					@ColumnResult(name = "unfinished1", type=int.class), 
-					@ColumnResult(name = "unfinished2", type=int.class), 
-					@ColumnResult(name = "unfinished3", type=int.class), 
-					@ColumnResult(name = "unfinished4", type=int.class), 
-					@ColumnResult(name = "unfinished5", type=int.class), 
-					@ColumnResult(name = "unfinished6", type=int.class)
+					@ColumnResult(name = "unfinished0", type=Integer.class),
+					@ColumnResult(name = "unfinished1", type=Integer.class), 
+					@ColumnResult(name = "unfinished2", type=Integer.class), 
+					@ColumnResult(name = "unfinished3", type=Integer.class), 
+					@ColumnResult(name = "unfinished4", type=Integer.class), 
+					@ColumnResult(name = "unfinished5", type=Integer.class), 
+					@ColumnResult(name = "unfinished6", type=Integer.class)
 				})
 		})
 

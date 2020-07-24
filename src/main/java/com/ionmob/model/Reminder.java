@@ -24,15 +24,20 @@ import lombok.Setter;
  * Defines the mapping result-set of the native-SQL queries
  */
 @SqlResultSetMapping(name = "getDetailMapping", classes = {
-		@ConstructorResult(targetClass = ReminderDetail.class, columns = { @ColumnResult(name = "id"),
-				@ColumnResult(name = "doc_id"), @ColumnResult(name = "pres_id"), @ColumnResult(name = "doctor_name"),
-				@ColumnResult(name = "prescription"), 
-				@ColumnResult(name = "message"), 
-				@ColumnResult(name = "priority"),
-				@ColumnResult(name = "duration"), 
-				@ColumnResult(name = "late_ind"), 
-				@ColumnResult(name = "create_dt"),
-				@ColumnResult(name = "done_dt"),
+		@ConstructorResult(targetClass = ReminderDetail.class, 
+				columns = { 
+				@ColumnResult(name = "id", type=Integer.class),
+				@ColumnResult(name = "doc_id", type=Integer.class),
+				@ColumnResult(name = "pres_id", type=Integer.class),
+				@ColumnResult(name = "doctor_name", type=String.class),
+				@ColumnResult(name = "prescription", type=String.class),
+				@ColumnResult(name = "message", type=String.class),
+				@ColumnResult(name = "priority", type=String.class),
+				@ColumnResult(name = "duration", type=Float.class),
+				@ColumnResult(name = "elapsed", type=Float.class),
+				@ColumnResult(name = "late_ind", type=Integer.class),
+				@ColumnResult(name = "create_dt", type=Date.class),
+				@ColumnResult(name = "done_dt",  type=Date.class),
 				}) })
 
 /**
@@ -45,7 +50,6 @@ import lombok.Setter;
 		+ "ON r.prescription_id = p.id INNER JOIN tb_patient pat ON p.patient_id = pat.id "
 		+ "INNER JOIN tb_doctor doc ON p.doctor_id = doc.id "
 		+ "WHERE pat.id = ?1 "
-		//+ "AND DATE_FORMAT(r.create_dt,'%d%m%Y') = ?2 "
 		+ "order by r.create_dt desc", 
 		resultSetMapping = "getDetailMapping")
 
@@ -118,10 +122,4 @@ public class Reminder {
 	@Setter
 	@Column(name = "update_dt", columnDefinition = "TIMESTAMP")
 	private Date updateDt;
-	
-	public int getDoneStatus() {
-		if (getDoneDt() == null) return 0;
-		return getLateInd();
-	}
-
 }

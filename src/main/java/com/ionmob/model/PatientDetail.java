@@ -5,28 +5,27 @@ import lombok.Setter;
 
 public class PatientDetail {
 	
-	public PatientDetail(
-			Integer presId, 
-			String prescription, 
-			Integer docId, 
-			String docName, 
-			Integer patId, 
-			String patName, 
-			Integer unfinishedHigh,
-			int unfinishedMiddle, 
-			int unfinishedLow
-			) {
+	public PatientDetail(Integer id, String name, Integer presId, String prescription, Integer docId, String docName,
+			Integer unfinishedHigh, Integer unfinishedMiddle, Integer unfinishedLow) {
+		this.id = id;
+		this.name = name;
 		this.presId = presId;
 		this.prescription = prescription;
 		this.docId = docId;
 		this.docName = docName;
-		this.patId = patId;
-		this.patName = patName;
 		this.unfinishedHigh = unfinishedHigh;
 		this.unfinishedMiddle = unfinishedMiddle;
 		this.unfinishedLow = unfinishedLow;
 	}
+
+	@Getter
+	@Setter
+	private Integer id;
 	
+	@Getter
+	@Setter
+	private String name;
+
 	@Getter
 	@Setter
 	private Integer presId;
@@ -45,22 +44,14 @@ public class PatientDetail {
 
 	@Getter
 	@Setter
-	private Integer patId;
-	
-	@Getter
-	@Setter
-	private String patName;
+	private Integer unfinishedHigh;
 
 	@Getter
 	@Setter
-	private int unfinishedHigh;
+	private Integer unfinishedMiddle;
 
 	@Getter
 	@Setter
-	private int unfinishedMiddle;
-
-	@Getter
-	@Setter
-	private int unfinishedLow;
+	private Integer unfinishedLow;
 
 }
